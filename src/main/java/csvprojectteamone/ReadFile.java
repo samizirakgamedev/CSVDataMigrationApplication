@@ -1,23 +1,27 @@
 package csvprojectteamone;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ReadFile {
-    public static void readCSV(String filePath){
+
+    public static String readCSV(String filePath){
+        ArrayList<String[]> employeeList = new ArrayList<>();
+
         try (BufferedReader br = new BufferedReader(new FileReader(filePath));){
             String line;
             while((line = br.readLine()) != null){
-                String[] csvData = line.split(",");
-                System.out.println(Arrays.toString(csvData));
+                employeeList.add(line.split(","));
             }
-
-
+            for(String[] s:employeeList){
+                System.out.println(Arrays.toString(s));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
