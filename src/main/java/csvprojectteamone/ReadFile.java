@@ -12,6 +12,7 @@ public class ReadFile {
             String line;
             while((line = br.readLine()) != null){
                 String[] csvData = line.split(",");
+                System.out.println(Arrays.toString(csvData));
             }
 
 
