@@ -1,0 +1,2 @@
+# CSVDataMigrationApplication
+An application that will read data from a CSV file (provided), parse it, populate objects and add to a collection. The program will be able to efficiently write the data from the objects to a relational database using JDBC. We will be making sure to demonstrate good programming practices in OOP, SOLID, design patterns, testing, logging, etc as part of out ongoing training @ Sparta Global.
