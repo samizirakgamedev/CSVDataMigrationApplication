@@ -1,13 +1,12 @@
 package csvprojectteamone.database;
 
-import csvprojectteamone.DatabaseConnectionFactory;
 import csvprojectteamone.Employee;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.HashMap;
 
-public class EmployeeDAOImpl implements EmployeeDAO {
+public class EmployeeDAOImpl implements EmployeeDAOInterface {
 
     private static final String INSERT_EMPLOYEE = "INSERT INTO employees" +
                 " (employeeId, title , firstName, middleInitial, lastName, gender, emailAddress, dateOfBirth, dateOfJoining, salary)"
@@ -33,13 +32,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
-//        finally {
-//            try {
-//                DatabaseConnectionFactory.closeConnection();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
         @Override
     public void insertEmployee(Employee employee){
@@ -64,13 +56,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         } catch (SQLException | IOException e){
             e.printStackTrace();
         }
-//        finally {
-//            try{
-//                DatabaseConnectionFactory.closeConnection();
-//            } catch (SQLException e){
-//                e.printStackTrace();
-//            }
-//        }
+
     }
 
     @Override
@@ -78,49 +64,41 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         for(Employee employee : employeesList.values()){
             insertEmployee(employee);
         }
-//        selectEmployee(1);
-        try {
-            DatabaseConnectionFactory.closeConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public boolean updateEmployee(int employeeId){
-
-        return false;
     }
 
     @Override
     public void selectEmployee(int employeeId) {
         ResultSet rs = null;
-        try(Connection connection = DatabaseConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT  * FROM employees WHERE employeeId = ?")
-            ;) {
-            preparedStatement.setInt(1,1);
+        try{
+            Connection connection = DatabaseConnectionFactory.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT  * FROM employees WHERE employeeId = ?");
+            preparedStatement.setInt(1,employeeId);
             rs = preparedStatement.executeQuery();
-            System.out.println(rs);
+            rs.next();
+            System.out.println("Employee: " + rs.getString(2) + " "  + rs.getString(3) + " " +  rs.getString(4) + " " + rs.getString(5)
+                                + " Gender: " + rs.getString(6) + " Email: " + rs.getString(7) + " Birthdate: " + rs.getString(8) + " Joining date: "
+                                + rs.getString(9));
         } catch (SQLException | IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                DatabaseConnectionFactory.closeConnection();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
+
     @Override
     public void selectAllEmployees() {
-
+        ResultSet rs = null;
+        try{
+            Connection connection = DatabaseConnectionFactory.getConnection();
+            Statement statement = connection.createStatement();
+            rs = statement.executeQuery("SELECT * FROM employees");
+            while(rs.next()) {
+                System.out.println("Employee: " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5)
+                        + " Gender: " + rs.getString(6) + " Email: " + rs.getString(7) + " Birthdate: " + rs.getString(8) + " Joining date: "
+                        + rs.getString(9));
+            }
+            rs.close();
+        } catch (SQLException | IOException e) {
+            e.printStackTrace();
+        }
     }
-
-    @Override
-    public boolean deleteEmployee(int employeeId){
-
-        return false;
-    }
-
 }

@@ -30,15 +30,15 @@ public class ReadFile {
                             Double.parseDouble(parts[9]));
                     employeeHashMap.put(key, e);
                 } else {
-                    System.out.println("ignoring line: " + line);
+//                    System.out.println("ignoring line: " + line);
                 }
             }
             int count = 0;
             for (Integer key : employeeHashMap.keySet()) {
-                System.out.println(key + ":" + employeeHashMap.get(key));
+//                System.out.println(key + ":" + employeeHashMap.get(key));
                 count++;
             }
-            System.out.println(count);
+//            System.out.println(count);
         }catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
