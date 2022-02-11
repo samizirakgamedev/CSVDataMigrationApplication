@@ -1,4 +1,3 @@
-
 <img src="readmeImages/sparta.jpg" align="right" width="75" />
 
 # CSV Data Migration Application (Java)
@@ -50,50 +49,66 @@ The CSV Data migration application will read data from a CSV file, parse it, pop
 ```
 <br/>
 <div align="right">
-    <b><a href="#sort-manager-application-java">↥ back to top</a></b>
+    <b><a href="#csv-data-migration-application-java">↥ back to top</a></b>
 </div>
 <br/>
 
 ### How To Use ###
 1. Navigate to the top of this GitHub repo and click the green **Code** button. This will open a menu where you will want to click **Download Zip**.
-
+<img src="readmeImages/htu1.jpg"/>
 
 2. Having clicked **Download ZIP** a **Save As** dialogue box will open. Choose where you want to store the compressed CSV Data Migration program and then click the **Save** button.
+<img src="readmeImages/htu2.jpg"/>
 
+3. Using Windows Explorer navigate to the location you saved the compressed CSV Data Migration program in. Right-click on the program and select **Extract Here**.
+<img src="readmeImages/htu3.jpg"/>
 
-3. Using Windows Explorer navigate to the location you saved the compressed Sort Manager program in. Right-click on the program and select **Extract Here**.
-
-
-4. Open IntelliJ Community Edition and click **File** and then **Open**. Navigate to the extracted Sort Manager project folder and select it. Then click **Ok**.
-
+4. Open IntelliJ Community Edition and click **File** and then **Open**. Navigate to the extracted CSV Data Migration program project folder and select it. Then click **Ok**.
+<img src="readmeImages/htu4.jpg"/>
 
 5. Once the project has opened and all dependencies have been downloaded look to the top right-hand corner of IntelliJ and ensure that the class that has been set to run is **CSVDataMigrationMain**. You can now run the program by clicking the green play button.
-
+<img src="readmeImages/htu5.jpg"/>
 <div align="right">
-    <b><a href="#sort-manager-application-java">↥ back to top</a></b>
+    <b><a href="#csv-data-migration-application-java">↥ back to top</a></b>
 </div>
 <br/>
 
 ### Planned Project Phases ###
 #### Phase 1 ####
-
+Phase 1 has the following objectives:
+* Write code to read data from an Employee CSV file.
+* Make sure that as a CSV file is read in, that each line is added to a new object of a suitable class (Employee) and then added to a collection (HashMap).
+* Make sure that any corrupt or duplicated data is added to a separate collection for further analysis.
+* Write tests to ensure data is being managed correctly.
+* Provide a simple user interface to display the results of reading the file – how many unique, clean records there are, how many duplicates, how many records with missing fields, possibly display the questionable records.
 #### Phase 2 ####
-
+Phase 2 has the following objectives:
+* Write SQL statements to create a table and to persist data to that table. If the table exists, it will need to be dropped first.
+* Create a data process object (DAO pattern) to persist the data to the database.
+* Persist employee records and write code to retrieve individual record from the database.
 #### Phase 3 ####
-
+Phase 3 has the following objectives:
+* Record time taken to persist data to the database.
+* Add multithreading to the application to write the data to the database.
+* Compare the execution time of writing to the database with multiple threads to the single-threaded version.
+* Experiment with different numbers of threads and compare the results – what is the optimum number of threads? 
+* Record this information in the README.md.
+* Run tests to ensure the integrity of the data - make sure data has not been corrupted by adding multithreading to the application (check whether race conditions, for example, have changed the operation of the program).
 #### Phase 4 ####
-
+Phase 4 has the following objectives:
+* Modify code to make use of functional programming concepts – lambdas and streams.
+* Keep the original code and then run tests to see if efficiency has improved by adding functional code.
+* Consider whether our code has been improved as a result of the changes.
 <br/>
 <div align="right">
-    <b><a href="#sort-manager-application-java">↥ back to top</a></b>
+    <b><a href="#csv-data-migration-application-java">↥ back to top</a></b>
 </div>
 <br/>
 
 ### JUnit Testing ###
 
-
 <br/>
 <div align="right">
-    <b><a href="#sort-manager-application-java">↥ back to top</a></b>
+    <b><a href="#csv-data-migration-application-java">↥ back to top</a></b>
 </div>
 <br/>
