@@ -3,7 +3,7 @@ package csvprojectteamone;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static csvprojectteamone.ReadFile.readCSV;
+import static csvprojectteamone.FileReaderClass.readCSV;
 
 public class CSVDataMigrationMain {
     public static void main(String[] args) {
