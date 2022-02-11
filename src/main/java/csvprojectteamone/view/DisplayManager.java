@@ -1,4 +1,4 @@
-package csvprojectteamone;
+package csvprojectteamone.view;
 
 import java.util.Scanner;
 

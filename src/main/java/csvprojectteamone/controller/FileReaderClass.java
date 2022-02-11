@@ -1,4 +1,7 @@
-package csvprojectteamone;
+package csvprojectteamone.controller;
+
+import csvprojectteamone.model.DataVerification;
+import csvprojectteamone.model.Employee;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

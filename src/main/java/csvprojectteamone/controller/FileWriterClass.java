@@ -1,4 +1,6 @@
-package csvprojectteamone;
+package csvprojectteamone.controller;
+
+import csvprojectteamone.model.Employee;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

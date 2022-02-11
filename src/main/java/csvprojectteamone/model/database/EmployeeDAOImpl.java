@@ -1,6 +1,6 @@
-package csvprojectteamone.database;
+package csvprojectteamone.model.database;
 
-import csvprojectteamone.Employee;
+import csvprojectteamone.model.Employee;
 
 import java.io.IOException;
 import java.sql.*;

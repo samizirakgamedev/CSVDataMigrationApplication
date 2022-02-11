@@ -1,4 +1,4 @@
-package csvprojectteamone.database;
+package csvprojectteamone.model.database;
 
 import java.io.FileReader;
 import java.io.IOException;

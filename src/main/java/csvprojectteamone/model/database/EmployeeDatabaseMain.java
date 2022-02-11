@@ -1,16 +1,13 @@
-package csvprojectteamone.database;
+package csvprojectteamone.model.database;
 
-import csvprojectteamone.Employee;
+import csvprojectteamone.model.Employee;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import static csvprojectteamone.ReadFile.readCSV;
+import static csvprojectteamone.controller.FileReaderClass.readCSV;
 
 public class EmployeeDatabaseMain {
     public static void main(String[] args) throws SQLException, IOException {

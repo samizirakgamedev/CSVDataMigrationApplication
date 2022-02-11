@@ -1,7 +1,8 @@
 package csvprojectteamone;
 
-import csvprojectteamone.database.DatabaseConnectionFactory;
-import csvprojectteamone.database.EmployeeDAOImpl;
+import csvprojectteamone.model.database.DatabaseConnectionFactory;
+import csvprojectteamone.model.database.EmployeeDAOImpl;
+import csvprojectteamone.model.Employee;
 import org.junit.jupiter.api.*;
 
 import java.io.IOException;
@@ -9,7 +10,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.HashMap;
 
-import static csvprojectteamone.ReadFile.readCSV;
+import static csvprojectteamone.controller.FileReaderClass.readCSV;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 

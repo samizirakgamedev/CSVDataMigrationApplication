@@ -1,14 +1,12 @@
-package csvprojectteamone.threads;
+package csvprojectteamone.controller;
 
-import csvprojectteamone.Employee;
+import csvprojectteamone.model.Employee;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
-public class MyThread implements Runnable {
+public class Thread implements Runnable {
 
     private String threadName;
     private HashMap<Integer, Employee> map;
@@ -16,7 +14,7 @@ public class MyThread implements Runnable {
 
 
 
-    public MyThread(String threadName, HashMap<Integer, Employee> map, BufferedReader inFile){
+    public Thread(String threadName, HashMap<Integer, Employee> map, BufferedReader inFile){
         this.threadName = threadName;
         this.map = map;
         this.inFile = inFile;
@@ -36,7 +34,7 @@ public class MyThread implements Runnable {
                 while ((line = inFile.readLine()) != null) {
                     String[] values = line.split(",");
                     synchronized (map){
-                        map.put(new Employee(values[1], values[2]));
+                        //map.put(new Employee(values[1], values[2]));
                 }
             }
         } catch (IOException e){

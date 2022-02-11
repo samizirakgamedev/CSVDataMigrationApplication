@@ -1,5 +1,6 @@
 package csvprojectteamone;
 
+import csvprojectteamone.model.Employee;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static csvprojectteamone.ReadFile.readCSV;
+import static csvprojectteamone.controller.FileReaderClass.readCSV;
+
 
 public class ReadFileTests {
     @BeforeAll

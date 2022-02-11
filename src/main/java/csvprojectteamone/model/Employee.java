@@ -1,4 +1,4 @@
-package csvprojectteamone;
+package csvprojectteamone.model;
 
 import java.time.LocalDate;
 
