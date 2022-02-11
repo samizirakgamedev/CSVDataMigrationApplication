@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static csvprojectteamone.controller.FileReaderClass.readCSV;
+import static csvprojectteamone.controller.FileReader.readCSV;
 
 
 public class ReadFileTests {

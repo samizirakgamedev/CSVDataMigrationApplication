@@ -28,18 +28,13 @@ public class Employee {
     }
     @Override
     public String toString() {
-        return "Employee{" +
-                "employeeId=" + employeeId +
-                ", title='" + title + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", middleInitial=" + middleInitial +
-                ", lastName='" + lastName + '\'' +
-                ", gender=" + gender +
-                ", emailAddress='" + emailAddress + '\'' +
-                ", dateOfBirth=" + dateOfBirth +
-                ", dateOfJoining=" + dateOfJoining +
-                ", salary=" + salary +
-                '}';
+        return "[Employee #" + employeeId +
+                ": "+ title + " " + firstName +
+                " " + middleInitial + ". " + lastName +
+                " - Gender: " + gender + ", Email: "
+                + emailAddress + ", D.o.B: "
+                + dateOfBirth + ", Date Joined: "
+                + dateOfJoining + ", Salary: " + salary + "]";
     }
     public int getEmployeeId() {
         return employeeId;

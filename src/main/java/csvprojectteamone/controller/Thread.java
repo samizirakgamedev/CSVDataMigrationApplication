@@ -7,38 +7,22 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class Thread implements Runnable {
-
+    // String for naming the thread.
     private String threadName;
+    // HashMap that we will pass into the thread object - this will contain employee records.
     private HashMap<Integer, Employee> map;
+    // For reading the file line by line.
     private BufferedReader inFile;
 
-
-
+    //Constructor for creating a new thread.
     public Thread(String threadName, HashMap<Integer, Employee> map, BufferedReader inFile){
         this.threadName = threadName;
         this.map = map;
         this.inFile = inFile;
     }
-
+    // Overridden method from the implemented 'Runnable' interface. Called for processing the file in its separately executed thread object.
     @Override
     public void run() {
-        processFile();
-
-    }
-
-    // Put the processFile in Suyash's FileReader and FileWriter class.
-
-    public void processFile(){
-        String line;
-        try {
-                while ((line = inFile.readLine()) != null) {
-                    String[] values = line.split(",");
-                    synchronized (map){
-                        //map.put(new Employee(values[1], values[2]));
-                }
-            }
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+        //processFile();
     }
 }

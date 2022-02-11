@@ -10,7 +10,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.HashMap;
 
-import static csvprojectteamone.controller.FileReaderClass.readCSV;
+import static csvprojectteamone.controller.FileReader.readCSV;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
