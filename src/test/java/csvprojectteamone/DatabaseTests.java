@@ -78,7 +78,7 @@ public class DatabaseTests {
         //Create or drop table first
         employeeDAO.createEmployeesTable();
         //create map with employee details
-        readCSV("EmployeeRecords.csv",ourNames);
+        readCSV("csvInputs/EmployeeRecords.csv",ourNames);
         employeeDAO.insertMultipleEmployees(ourNames);
         Statement statement = null;
         ResultSet rs = null;

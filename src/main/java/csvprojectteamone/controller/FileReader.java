@@ -59,8 +59,8 @@ public class FileReader {
                   map.put(id, e);
               }
             else
-                FileWriter.writeToCSVFile("DuplicateRecords.csv", e, "Duplicate-data");
+                FileWriter.writeToCSVFile("csvOutputs/DuplicateRecords.csv", e, "Duplicate-data");
         } else
-            FileWriter.writeToCSVFile("CorruptRecords.csv", e, "Corrupt-data");
+            FileWriter.writeToCSVFile("csvOutputs/CorruptRecords.csv", e, "Corrupt-data");
     }
 }

@@ -30,7 +30,7 @@ public class ReadFileTests {
     @Test
     @DisplayName("Given a filePath and HashMap that is null, the readCSV method will not throw a \"NullPointerException\"")
     public void readCSVDoesNotThrowNullPointerException(){
-        Assertions.assertDoesNotThrow(() -> readCSV("EmployeeRecords.csv",null));
+        Assertions.assertDoesNotThrow(() -> readCSV("csvInput/EmployeeRecords.csv",null));
     }
     @Test
     @DisplayName("Given an invalid filePath and HashMap that is null, the readCSV method will not throw a \"NullPointerException\" or \"IOException\"")
@@ -52,7 +52,7 @@ public class ReadFileTests {
     @DisplayName("Given a filePath and HashMap the readCSV method will read the employeeId and set it as the HashMaps keyset")
     public void readCSVSetsEmployeeIDAsKeySet(){
         HashMap<Integer, Employee> eHashActual = new HashMap<>();
-        readCSV("TestRecords.csv",eHashActual);
+        readCSV("csvInputs/TestRecords.csv",eHashActual);
         HashMap<Integer, Employee> eHashExpected = generateTestHashMap();
 
         Assertions.assertEquals(eHashExpected.keySet(), eHashActual.keySet());
@@ -61,7 +61,7 @@ public class ReadFileTests {
     @DisplayName("Given a filePath and HashMap the readCSV method will read the file and remove duplicates")
     public void readCSVRemovesDuplicates(){
         HashMap<Integer, Employee> eHashActual = new HashMap<>();
-        readCSV("TestDuplicateRecords.csv",eHashActual);
+        readCSV("csvInputs/TestDuplicateRecords.csv",eHashActual);
 
         HashMap<Integer, Employee> eHashExpected = generateTestHashMapDuplicates();
 

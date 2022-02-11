@@ -40,7 +40,7 @@ public class EmployeeDatabaseMain {
                     //Create or drop table first
                     employeeDAO.createEmployeesTable();
                     //create map with employee details
-                    readCSV("EmployeeRecords.csv",ourNames);
+                    readCSV("csvInputs/EmployeeRecords.csv",ourNames);
                     //Insert employees data into database
                     employeeDAO.insertMultipleEmployees(ourNames);
                 }

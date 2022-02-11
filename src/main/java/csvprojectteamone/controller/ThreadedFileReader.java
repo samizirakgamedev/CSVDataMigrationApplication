@@ -12,22 +12,26 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ThreadedFileReader {
-
-    // Method for reading in a CSV file from a directory.
-    // This adds each record to a new 'Employee'' object  and then add those objects to the employeeHashmap collection.
-
+    // Initialising the logger.
+    private static Logger logger = LogManager.getLogger("CSV-DM Logger:");
+    ////        logger.warn("");
+    ////        logger.info("");
+    ////        logger.error("");
     private static final int TOTAL_THREADS = 10;
     static ArrayList<java.lang.Thread> threads = new ArrayList();
     private static HashMap<Integer, Employee> threadedRecords = new HashMap<>();
 
-
+    // Method for reading in a CSV file from a directory.
+    // This adds each record to a new 'Employee'' object  and then add those objects to the employeeHashmap collection.
     public static void readCSV(String filePath, HashMap<Integer, Employee> employeeHashMap) {
         String line;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
         try (BufferedReader reader = new BufferedReader(new java.io.FileReader(filePath));) {
-
+            logger.info("The CSV file at path \"" + filePath + "\" has been found");
             long entryCount = Files.lines(Paths.get(filePath)).count();
 
             String headerLine = reader.readLine();
@@ -85,9 +89,9 @@ public class ThreadedFileReader {
 
                 }
             else
-                FileWriter.writeToCSVFile("DuplicateRecords.csv", e, "Duplicate-data");
+                FileWriter.writeToCSVFile("csvOutputs/DuplicateRecords.csv", e, "Duplicate-data");
         } else
-            FileWriter.writeToCSVFile("CorruptRecords.csv", e, "Corrupt-data");
+            FileWriter.writeToCSVFile("csvOutputs/CorruptRecords.csv", e, "Corrupt-data");
     }
 
     private static void deleteThreads(){
