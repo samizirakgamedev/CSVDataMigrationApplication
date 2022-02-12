@@ -2,6 +2,7 @@ package csvprojectteamone.controller;
 
 import csvprojectteamone.model.DataVerification;
 import csvprojectteamone.model.Employee;
+import csvprojectteamone.model.LogClass;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,17 +14,19 @@ import java.util.HashMap;
 
 public class FileReader {
 
-    private static Logger logger = LogManager.getLogger("CSV-DM Logger:");
+    //private static Logger logger = LogManager.getLogger("CSV-DM Logger:"); -> Get rid of this
+
     private static int duplicateCount = 0;
     private static int corruptCount = 0;
+
     // Method for reading in a CSV file from a directory.
     // This adds each record to a new 'Employee'' object  and then add those objects to the employeeHashmap collection.
     public static void readCSV(String filePath, HashMap<Integer, Employee> employeeHashMap) {
-        logger.info("readCSV called from FileReader");
+        LogClass.logInfo("readCSV called from FileReader");
         String line;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
         try (BufferedReader reader = new BufferedReader(new java.io.FileReader(filePath));) {
-            logger.info("The CSV file at path \"" + filePath + "\" has been found for FileReader");
+            LogClass.logInfo("The CSV file at path \"" + filePath + "\" has been found for FileReader");
             String headerLine = reader.readLine();
             while ((line = reader.readLine()) != null)
             {
@@ -45,27 +48,27 @@ public class FileReader {
                 dataFiltration(employee,key,employeeHashMap);
             }
             outputRecords(employeeHashMap);
-            logger.info("The CSV file has been read. There were " + duplicateCount + " duplicates and " + corruptCount + " corrupted files found");
-            logger.info("These can be found in the csvOutputs folder.");
+            LogClass.logInfo("The CSV file has been read. There were " + duplicateCount + " duplicates and " + corruptCount + " corrupted files found");
+            LogClass.logInfo("These can be found in the csvOutputs folder.");
         }catch (IOException | NullPointerException e) {
-            e.printStackTrace();
-            logger.error("FileReader has thrown an " + e + " exception type");
+            e.printStackTrace(); // we can remove this line
+            LogClass.logError("FileReader has thrown an " + e + " exception type"); //in place of e, we can call the e.getMessage()
         }
     }
     // Method for outputting all records that are stored within the employee HashMap.
     public static void outputRecords(HashMap<Integer,Employee> hash){
-        logger.info("outputRecords method called from FileReader");
+        LogClass.logInfo("outputRecords method called from FileReader");
         int count = 0;
         for (Integer key : hash.keySet()) {
             System.out.println(key + ":" + hash.get(key));
             count++;
         }
         System.out.println(count);
-        logger.info("Clean records have been counted and stored for FileReader");
+        LogClass.logInfo("Clean records have been counted and stored for FileReader");
     }
     // Method for checking that an employee's record is not corrupt or a duplicate of an already existing record within the HashMap.
     public static void dataFiltration(Employee e, Integer id,HashMap<Integer,Employee> map){
-        logger.info("Validation method checking for corrupted/duplicate records called in FileReader");
+        LogClass.logInfo("Validation method checking for corrupted/duplicate records called in FileReader");
         if(DataVerification.isEmployeeDataValid(e)) {
             if(!map.containsKey(id))
               synchronized (map){
