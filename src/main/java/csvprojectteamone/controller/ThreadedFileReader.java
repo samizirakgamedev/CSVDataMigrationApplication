@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,6 +38,7 @@ public class ThreadedFileReader {
     // This adds each record to a new 'Employee'' object  and then add those objects to the employeeHashmap collection.
     public static void readCSV(String filePath, HashMap<Integer, Employee> employeeHashMap) {
         LogClass.logInfo("readCSV called from ThreadedFileReader.");
+        long start = System.nanoTime(); //starts the timing
         String line;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
         try (BufferedReader reader = new BufferedReader(new java.io.FileReader(filePath));) {
@@ -80,6 +83,8 @@ public class ThreadedFileReader {
             e.printStackTrace();
             LogClass.logError("ThreadedFileReader has thrown an " + e + " exception type.");
         }
+        long end = System.nanoTime(); // ends the timing
+        LogClass.logInfo("It took " + (TimeUnit.MICROSECONDS.convert(end-start, TimeUnit.NANOSECONDS)) + " Microseconds to run the ThreadedFileReader 'readCSV' method."); //converts to microseconds
     }
     // Method for outputting all records that are stored within the employee HashMap.
     public static void outputRecords(HashMap<Integer,Employee> hash){

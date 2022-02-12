@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class FileReader {
 
@@ -23,6 +24,7 @@ public class FileReader {
     // This adds each record to a new 'Employee'' object  and then add those objects to the employeeHashmap collection.
     public static void readCSV(String filePath, HashMap<Integer, Employee> employeeHashMap) {
         LogClass.logInfo("readCSV called from FileReader");
+        long start = System.nanoTime(); // Timing method start
         String line;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
         try (BufferedReader reader = new BufferedReader(new java.io.FileReader(filePath));) {
@@ -54,6 +56,8 @@ public class FileReader {
             e.printStackTrace(); // we can remove this line
             LogClass.logError("FileReader has thrown an " + e + " exception type"); //in place of e, we can call the e.getMessage()
         }
+        long end = System.nanoTime(); // timing method ends
+        LogClass.logInfo("It took " + (TimeUnit.MICROSECONDS.convert(end-start, TimeUnit.NANOSECONDS)) + " Microseconds to run the non-threaded FileReader 'readCSV' method.");//converts to microseconds
     }
     // Method for outputting all records that are stored within the employee HashMap.
     public static void outputRecords(HashMap<Integer,Employee> hash){
