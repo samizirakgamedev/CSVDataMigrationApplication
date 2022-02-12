@@ -1,5 +1,6 @@
 package csvprojectteamone.model.database;
 
+import csvprojectteamone.controller.ThreadedFileReader;
 import csvprojectteamone.model.Employee;
 
 import java.io.IOException;
@@ -40,9 +41,11 @@ public class EmployeeDatabaseMain {
                     //Create or drop table first
                     employeeDAO.createEmployeesTable();
                     //create map with employee details
-                    readCSV("csvInputs/EmployeeRecords.csv",ourNames);
+//                    readCSV("csvInputs/EmployeeRecords.csv",ourNames);
                     //Insert employees data into database
-                    employeeDAO.insertMultipleEmployees(ourNames);
+                    ThreadedFileReader t = new ThreadedFileReader();
+                    t.readCSV("csvInputs/EmployeeRecordsLarge.csv",ourNames);
+//                    employeeDAO.insertMultipleEmployees(ourNames);
                 }
                 case 2 -> {
                     System.out.println("Enter employee id");

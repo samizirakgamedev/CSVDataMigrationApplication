@@ -1,5 +1,6 @@
 package csvprojectteamone;
 
+import csvprojectteamone.controller.ThreadedFileReader;
 import csvprojectteamone.model.database.DatabaseConnectionFactory;
 import csvprojectteamone.model.database.EmployeeDAOImpl;
 import csvprojectteamone.model.Employee;
@@ -79,7 +80,7 @@ public class DatabaseTests {
     }
 
     @Test
-    @DisplayName("GivenADatabaseConnectionSelectNonexistentEmployeeReturnsFalse")
+    @DisplayName("GivenADatabaseConnectionSelectExistentEmployeeReturnsTrue")
     public void selectExistentUserReturnTrue(){
         employeeDAO.createEmployeesTable();
         Employee testEmployee = new Employee(458749,"Mr." , "Donovan", 'R' ,"Cupueran",
@@ -90,8 +91,8 @@ public class DatabaseTests {
     }
 
     @Test
-    @DisplayName("GivenADatabaseConnectionInsertMultipleEmployeeIntoEmployeesTable")
-    public void insertMultipleEmployeeCheckIfExist(){
+    @DisplayName("GivenADatabaseConnectionInsertMultipleEmployeeIntoEmployeesTableSingleThread")
+    public void insertMultipleEmployeeCheckIfExistSingleThread(){
         employeeDAO.createEmployeesTable();
         HashMap<Integer, Employee> ourNames = new HashMap<Integer,Employee>();
         //Create or drop table first
@@ -99,6 +100,31 @@ public class DatabaseTests {
         //create map with employee details
         readCSV("csvInputs/EmployeeRecords.csv",ourNames);
         employeeDAO.insertMultipleEmployees(ourNames);
+        Statement statement = null;
+        ResultSet rs = null;
+        try {
+            Connection connection = DatabaseConnectionFactory.getConnection();
+            statement = connection.createStatement();
+            rs = statement.executeQuery("SELECT * FROM employees");
+            boolean exists = (rs.next());
+            assertEquals(true,exists);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    @DisplayName("GivenADatabaseConnectionInsertMultipleEmployeeIntoEmployeesTableMultipleThreads")
+    public void insertMultipleEmployeeCheckIfExistMultipleThreads(){
+        employeeDAO.createEmployeesTable();
+        HashMap<Integer, Employee> ourNames = new HashMap<Integer,Employee>();
+        //Create or drop table first
+        employeeDAO.createEmployeesTable();
+        //create map with employee details
+        ThreadedFileReader t = new ThreadedFileReader();
+        t.readCSV("csvInputs/EmployeeRecordsLarge.csv",ourNames);
         Statement statement = null;
         ResultSet rs = null;
         try {

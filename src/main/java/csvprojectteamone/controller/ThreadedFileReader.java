@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class ThreadedFileReader {
-    private static final int TOTAL_THREADS = 10;
+    private static final int TOTAL_THREADS = 100;
     static ArrayList<java.lang.Thread> threads = new ArrayList();
     private static HashMap<Integer, Employee> threadedRecords = new HashMap<>();
     private static int duplicateCount = 0;
