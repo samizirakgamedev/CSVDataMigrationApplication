@@ -66,11 +66,11 @@ public class DisplayManager {
         System.out.println("Please enter the number for your option of choice and press \'Enter\'");
         int inputChoice = scanner.nextInt();
         if(options[inputChoice] != null)
-            return inputChoice;
+            return (inputChoice -1);
         else{
             System.out.println("Please enter the number for a valid choice");
             getChoiceFromUser(message, options);
-            return 0;
+            return 0; //should never reach
         }
     }
 }
