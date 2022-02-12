@@ -16,7 +16,7 @@ public interface EmployeeDAOInterface {
     void insertMultipleEmployees(HashMap<Integer,Employee> employeesList);
 
     //Select Employee by id
-    void selectEmployee(int employeeId);
+    boolean selectEmployee(int employeeId);
 
     //Select all Employees
     void selectAllEmployees();

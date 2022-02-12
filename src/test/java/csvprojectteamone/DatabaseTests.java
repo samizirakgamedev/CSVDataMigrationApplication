@@ -71,6 +71,25 @@ public class DatabaseTests {
     }
 
     @Test
+    @DisplayName("GivenADatabaseConnectionSelectNonexistentEmployeeReturnsFalse")
+    public void selectNonexistentUserReturnFalse(){
+        employeeDAO.createEmployeesTable();
+        boolean expected = false;
+        assertEquals(expected,employeeDAO.selectEmployee(12345));
+    }
+
+    @Test
+    @DisplayName("GivenADatabaseConnectionSelectNonexistentEmployeeReturnsFalse")
+    public void selectExistentUserReturnTrue(){
+        employeeDAO.createEmployeesTable();
+        Employee testEmployee = new Employee(458749,"Mr." , "Donovan", 'R' ,"Cupueran",
+                'M', "test@test.com", LocalDate.of(1997,10,24), LocalDate.of(2021,10,22),2000);
+        employeeDAO.insertEmployee(testEmployee);
+        boolean expected = true;
+        assertEquals(expected,employeeDAO.selectEmployee(458749));
+    }
+
+    @Test
     @DisplayName("GivenADatabaseConnectionInsertMultipleEmployeeIntoEmployeesTable")
     public void insertMultipleEmployeeCheckIfExist(){
         employeeDAO.createEmployeesTable();

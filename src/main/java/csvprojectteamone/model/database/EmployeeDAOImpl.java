@@ -67,20 +67,24 @@ public class EmployeeDAOImpl implements EmployeeDAOInterface {
     }
 
     @Override
-    public void selectEmployee(int employeeId) {
+    public boolean selectEmployee(int employeeId) {
         ResultSet rs = null;
         try{
             Connection connection = DatabaseConnectionFactory.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT  * FROM employees WHERE employeeId = ?");
             preparedStatement.setInt(1,employeeId);
             rs = preparedStatement.executeQuery();
-            rs.next();
-            System.out.println("Employee: " + rs.getString(2) + " "  + rs.getString(3) + " " +  rs.getString(4) + " " + rs.getString(5)
+
+            if(rs.next()){
+                System.out.println("Employee: " + rs.getString(2) + " "  + rs.getString(3) + " " +  rs.getString(4) + " " + rs.getString(5)
                                 + " Gender: " + rs.getString(6) + " Email: " + rs.getString(7) + " Birthdate: " + rs.getString(8) + " Joining date: "
                                 + rs.getString(9));
+                return true;}
+            else return false;
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
 
