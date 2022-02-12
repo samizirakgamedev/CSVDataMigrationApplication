@@ -87,7 +87,5 @@ public class FileReader {
             FileWriter.writeToCSVFile("csvOutputs/CorruptRecords.csv", e, "Corrupt-data");
             corruptCount++;
         }
-
-
     }
 }

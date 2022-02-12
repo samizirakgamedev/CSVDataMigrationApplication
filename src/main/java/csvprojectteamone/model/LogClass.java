@@ -1,11 +1,10 @@
 package csvprojectteamone.model;
 
-import csvprojectteamone.CSVDataMigrationMain;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class LogClass {
-    private static final Logger logger = LogManager.getLogger(CSVDataMigrationMain.class);
+    private static final Logger logger = LogManager.getLogger("CSV-DM Logger");
     public static void logInfo(String message){
         logger.info(message);
     }

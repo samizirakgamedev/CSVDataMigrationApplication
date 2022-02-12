@@ -4,6 +4,7 @@ import csvprojectteamone.model.DataVerification;
 import csvprojectteamone.model.Employee;
 import csvprojectteamone.model.LogClass;
 import csvprojectteamone.model.database.EmployeeDAOImpl;
+import csvprojectteamone.view.DisplayManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,24 +16,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class ThreadedFileReader {
-    // Initialising the logger.
-
-    //private static Logger logger = LogManager.getLogger("CSV-DM Logger:"); -> Get Rid of this
-
-    ////        logger.warn("");
-    ////        logger.info("");
-    ////        logger.error("");
-
     private static final int TOTAL_THREADS = 10;
     static ArrayList<java.lang.Thread> threads = new ArrayList();
     private static HashMap<Integer, Employee> threadedRecords = new HashMap<>();
-
     private static int duplicateCount = 0;
     private static int corruptCount = 0;
+
+    private static DisplayManager dm = new DisplayManager();
 
     // Method for reading in a CSV file from a directory.
     // This adds each record to a new 'Employee'' object  and then add those objects to the employeeHashmap collection.
@@ -80,7 +71,7 @@ public class ThreadedFileReader {
 
             //outputRecords(employeeHashMap);
         }catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            dm.outputException(e);
             LogClass.logError("ThreadedFileReader has thrown an " + e + " exception type.");
         }
         long end = System.nanoTime(); // ends the timing
@@ -104,11 +95,8 @@ public class ThreadedFileReader {
             if(!map.containsKey(id)){
 //                synchronized (map){
                     map.put(id, e);
-
                     threadedRecords.put(id, e);
-
                 }
-
             else {
                 FileWriter.writeToCSVFile("csvOutputs/DuplicateRecords.csv", e, "Duplicate-data");
                 duplicateCount++;
