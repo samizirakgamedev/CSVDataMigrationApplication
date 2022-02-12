@@ -13,8 +13,6 @@ public class EmployeeDAOImpl implements EmployeeDAOInterface {
                 + " VALUES" + " (?,?,?,?,?,?,?,?,?,?);";
     private static final String SELECT_EMPLOYEE_BY_ID = "SELECT * FROM employees WHERE employeeId = ?; ";
     private static final String SELECT_ALL_EMPLOYEES = "SELECT * FROM employees";
-    private static final String DELETE_EMPLOYEE = "DELETE FROM employees WHERE employeeId = ?;";
-    private static final String UPDATE_EMPLOYEE = "UPDATE employee set name = ? WHERE employeeId = ? ;";
     private static final String CREATE_TABLE = "CREATE TABLE employees " +
                 "(employeeId INTEGER NOT NULL, " + "title VARCHAR(20), "+ "firstName VARCHAR(20), " + "middleInitial CHAR, "
                 + "lastName VARCHAR(20), " + "gender CHAR, " + "emailAddress VARCHAR(255)," + "dateOfBirth DATE, "
@@ -71,7 +69,7 @@ public class EmployeeDAOImpl implements EmployeeDAOInterface {
         ResultSet rs = null;
         try{
             Connection connection = DatabaseConnectionFactory.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT  * FROM employees WHERE employeeId = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement(SELECT_EMPLOYEE_BY_ID);
             preparedStatement.setInt(1,employeeId);
             rs = preparedStatement.executeQuery();
 
@@ -94,7 +92,7 @@ public class EmployeeDAOImpl implements EmployeeDAOInterface {
         try{
             Connection connection = DatabaseConnectionFactory.getConnection();
             Statement statement = connection.createStatement();
-            rs = statement.executeQuery("SELECT * FROM employees");
+            rs = statement.executeQuery(SELECT_ALL_EMPLOYEES);
             while(rs.next()) {
                 System.out.println("Employee: " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5)
                         + " Gender: " + rs.getString(6) + " Email: " + rs.getString(7) + " Birthdate: " + rs.getString(8) + " Joining date: "
