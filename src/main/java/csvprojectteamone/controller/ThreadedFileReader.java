@@ -58,6 +58,7 @@ public class ThreadedFileReader {
 
                 if(threadedRecords.size() > entryCount / TOTAL_THREADS) {
 
+                    createNewThreadAndAddToDatabase(threadedRecords);
                     threadedRecords = new HashMap<>();
                 }
             }
