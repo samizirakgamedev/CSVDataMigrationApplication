@@ -1,32 +1,32 @@
 package csvprojectteamone.controller;
 
 import csvprojectteamone.model.LogClass;
-import csvprojectteamone.view.DisplayManagerOther;
+import csvprojectteamone.view.DisplayManager;
 
 import java.util.InputMismatchException;
 
-public class SelectionManagerOther {
+public class SelectionManager {
     public static void startSelectionProcess() {
         boolean done = false;
         while(!done){
             boolean choice = false;
-            DisplayManagerOther.displaySelection();
+            DisplayManager.displaySelection();
             int userChoice = 0;
             do {
                 try {
-                    userChoice = InputManagerOther.getInteger();
+                    userChoice = InputManager.getInteger();
                     if(userChoice >= 1 && userChoice <= 4){
                         choice = true;
                     } else{
-                        DisplayManagerOther.displayMessage("Please select from one of the options listed above");
+                        DisplayManager.displayMessage("Please select from one of the options listed above");
                     }
                 } catch (InputMismatchException e){
                     LogClass.logError(e.getMessage());
-                    DisplayManagerOther.displayMessage("Please chose a number (option) between 1 and 4");
-                    InputManagerOther.getString();
+                    DisplayManager.displayMessage("Please chose a number (option) between 1 and 4");
+                    InputManager.getString();
                 } catch (Exception e){
                     LogClass.logError(e.getMessage());
-                    InputManagerOther.getString();
+                    InputManager.getString();
                 }
             } while(!choice);
 
@@ -48,11 +48,11 @@ public class SelectionManagerOther {
     }
 
     private static void selectEmployee(){
-        EmployeeManagerOther employeeManager = new EmployeeManagerOther();
+        EmployeeManager employeeManager = new EmployeeManager();
         boolean done = false;
         do {
             try {
-                DisplayManagerOther.displayMessage("Please enter an employee ID: ");
+                DisplayManager.displayMessage("Please enter an employee ID: ");
                 employeeManager.selectEmployee();
                 done = true;
             } catch (InputMismatchException | NullPointerException e){
@@ -73,11 +73,11 @@ public class SelectionManagerOther {
 //    }
 
 private static void selectAllEmployees(){
-    EmployeeManagerOther employeeManager = new EmployeeManagerOther();
+    EmployeeManager employeeManager = new EmployeeManager();
     boolean done = false;
     do {
         try {
-            DisplayManagerOther.displayMessage("Now selecting all employees");
+            DisplayManager.displayMessage("Now selecting all employees");
             employeeManager.selectAllEmployees();
             done = true;
         } catch (InputMismatchException | NullPointerException e){

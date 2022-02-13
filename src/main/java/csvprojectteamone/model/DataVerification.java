@@ -1,7 +1,5 @@
 package csvprojectteamone.model;
 
-import csvprojectteamone.model.Employee;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 

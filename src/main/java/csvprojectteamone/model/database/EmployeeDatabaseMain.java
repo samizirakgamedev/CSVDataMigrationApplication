@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import static csvprojectteamone.controller.FileReader.readCSV;
-
 public class EmployeeDatabaseMain {
     public static void main(String[] args) throws SQLException, IOException {
 //

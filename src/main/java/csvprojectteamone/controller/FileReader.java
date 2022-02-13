@@ -3,8 +3,6 @@ package csvprojectteamone.controller;
 import csvprojectteamone.model.DataVerification;
 import csvprojectteamone.model.Employee;
 import csvprojectteamone.model.LogClass;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,12 +12,8 @@ import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class FileReader {
-
-    //private static Logger logger = LogManager.getLogger("CSV-DM Logger:"); -> Get rid of this
-
     private static int duplicateCount = 0;
     private static int corruptCount = 0;
-
     // Method for reading in a CSV file from a directory.
     // This adds each record to a new 'Employee'' object  and then add those objects to the employeeHashmap collection.
     public static void readCSV(String filePath, HashMap<Integer, Employee> employeeHashMap) {

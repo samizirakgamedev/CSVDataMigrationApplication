@@ -1,33 +1,27 @@
 package csvprojectteamone.view;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class DisplayManager {
-    // For Output.
-    StringBuilder builder = new StringBuilder();
-    // For Input.
-    Scanner scanner = new Scanner(System.in);
-    // String for separating the console outputs.
-    String separateConsoleOutput = "==================================";
-
-    public void outputReadStatus() {
-        // Output that the writing to the database was successful.
-    }
-    public void outputWriteStatus() {
-        // Output that the writing to the database was successful.
-    }
-    public void outputFileStats() {
-        System.out.println("");
-        // Output: How many duplicates and corrupt data (getDuplicates)
-        // Output: How many records were added to the database (getRecordCount)
+    public static void displayMessage(String message){
+        System.out.println(message);
     }
 
-    public void outputAvailableOptions() {
-        System.out.println("");
-        // Option for getting employee via ID from the database.
-        // Option to view all duplicate and corrupt data from the database.
+    public static void displaySelection(){
+        System.out.println( "\n======================================================================================\n"+
+                "\n   *************************|| Welcome to CSV Migration ||*************************  \n" +
+                "\n======================================================================================\n"+
+                "-------------------------> Please select your desired option <-------------------------\n"+
+                "\n        ***--> Please choose from one of the following three options <--***\n" +
+                "\n    1 for- || Insert Employees csv to Database ||\n" +
+                "\n    2 for- || Select Employee by ID  ||\n" +
+                "\n    3 for- || Select All Employees from database  ||\n "+
+                "\n======================================================================================\n"+
+                "\n              Choose 4 for- || Exiting the Sort Manager Application ||               \n"+
+                "\n======================================================================================\n"+
+                "\n Enter your choice here: ");
+
+
     }
 
     public void outputException(Exception exception) {
@@ -37,40 +31,6 @@ public class DisplayManager {
             System.out.println("The provided collection is either invalid or has not been instantiated. Please provide a valid collection");
         else
             System.out.println("The program has thrown a " + exception + ".");
-        System.out.println(separateConsoleOutput);
     }
 
-    public String getStringFromUser(String message, String messageTwo) {
-        System.out.println(message);
-        if (messageTwo != null)
-            System.out.println(messageTwo);
-        String inputString = scanner.next();
-        System.out.println(separateConsoleOutput);
-        return inputString;
-    }
-
-    public int getIntFromUser(String message, String messageTwo) {
-        System.out.println(message);
-        if (messageTwo != null)
-            System.out.println(messageTwo);
-        int inputInt = scanner.nextInt();
-        System.out.println(separateConsoleOutput);
-        return inputInt;
-    }
-
-    public int getChoiceFromUser(String message, String[] options){
-        System.out.println(message);
-        for (int i = 0; i < options.length; i++){
-            System.out.println("Option " + i+1 + ": " + options[i]);
-        }
-        System.out.println("Please enter the number for your option of choice and press \'Enter\'");
-        int inputChoice = scanner.nextInt();
-        if(options[inputChoice] != null)
-            return (inputChoice -1);
-        else{
-            System.out.println("Please enter the number for a valid choice");
-            getChoiceFromUser(message, options);
-            return 0; //should never reach
-        }
-    }
 }

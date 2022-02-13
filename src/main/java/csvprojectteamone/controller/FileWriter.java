@@ -2,17 +2,12 @@ package csvprojectteamone.controller;
 
 import csvprojectteamone.model.Employee;
 import csvprojectteamone.model.LogClass;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class FileWriter {
-
-    //private static Logger logger = LogManager.getLogger("CSV-DM Logger:"); -> Get rid of this
-
     // Method for writing to a CSV file in a directory of choice.
     public static void writeToCSVFile(String filePath, Employee employee, String message) {
         long start = System.nanoTime(); //This timing method runs in a loop

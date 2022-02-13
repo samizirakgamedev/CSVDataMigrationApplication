@@ -4,7 +4,6 @@ import csvprojectteamone.model.DataVerification;
 import csvprojectteamone.model.Employee;
 import csvprojectteamone.model.LogClass;
 import csvprojectteamone.model.database.EmployeeDAOImpl;
-import csvprojectteamone.view.DisplayManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,8 +21,6 @@ public class ThreadedFileReader {
     private static HashMap<Integer, Employee> threadedRecords = new HashMap<>();
     private static int duplicateCount = 0;
     private static int corruptCount = 0;
-
-    private static DisplayManager dm = new DisplayManager();
 
     // Method for reading in a CSV file from a directory.
     // This adds each record to a new 'Employee'' object  and then add those objects to the employeeHashmap collection.
@@ -72,7 +69,6 @@ public class ThreadedFileReader {
 
             //outputRecords(employeeHashMap);
         }catch (IOException | NullPointerException e) {
-            dm.outputException(e);
             LogClass.logError("ThreadedFileReader has thrown an " + e + " exception type.");
         }
         long end = System.nanoTime(); // ends the timing

@@ -2,7 +2,7 @@ package csvprojectteamone.controller;
 
 import java.util.Scanner;
 
-public class InputManagerOther {
+public class InputManager {
     static Scanner scanner = new Scanner(System.in);
 
     public static String getString() {
