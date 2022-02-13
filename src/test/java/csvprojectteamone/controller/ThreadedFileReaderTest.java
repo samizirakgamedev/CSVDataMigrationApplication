@@ -1,65 +1,52 @@
-package csvprojectteamone;
+package csvprojectteamone.controller;
 
 import csvprojectteamone.model.Employee;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-import static csvprojectteamone.controller.FileReader.readCSV;
+import static csvprojectteamone.controller.FileReader.outputRecords;
+import static csvprojectteamone.controller.ThreadedFileReader.readCSV;
+import static org.junit.jupiter.api.Assertions.*;
 
-
-public class ReadFileTests {
-    @BeforeAll
-    static void setUp(){
-
-    }
+class ThreadedFileReaderTest {
 
     @Test
-    @DisplayName("Given an invalid filePath and a valid HashMap, the readCSV method will not throw a \"IOException\"")
-    public void readCSVDoesNotThrowIOException(){
-       HashMap<Integer, Employee> testHash = new HashMap<>();
-       Assertions.assertDoesNotThrow(() -> readCSV("invalidFile.csv",testHash));
-     }
-    @Test
-    @DisplayName("Given a filePath and HashMap that is null, the readCSV method will not throw a \"NullPointerException\"")
-    public void readCSVDoesNotThrowNullPointerException(){
-        Assertions.assertDoesNotThrow(() -> readCSV("csvInput/EmployeeRecords.csv",null));
+    @DisplayName("Given an invalid filePath and a valid HashMap, the readCSV method will not throw a \"IOException\" for ThreadedFileReader")
+    void readCSVDoesNotThrowIOExceptionForThreadedFileReader() {
+        HashMap<Integer, Employee> testHash = new HashMap<>();
+        Assertions.assertDoesNotThrow(() -> readCSV("invalidFile.csv",testHash));
     }
     @Test
-    @DisplayName("Given an invalid filePath and HashMap that is null, the readCSV method will not throw a \"NullPointerException\" or \"IOException\"")
-    public void readCSVDoesNotThrowExceptions(){
+    @DisplayName("Given a filePath and HashMap that is null, the readCSV method will not throw a \"NullPointerException\" for ThreadedFileReader")
+    public void readCSVDoesNotThrowNullPointerExceptionForThreadedFileReader(){
+        Assertions.assertDoesNotThrow(() -> readCSV("csvInput/EmployeeRecordsLarge.csv",null));
+    }
+    @Test
+    @DisplayName("Given an invalid filePath and HashMap that is null, the readCSV method will not throw a \"NullPointerException\" or \"IOException\" for ThreadedFileReader")
+    public void readCSVDoesNotThrowExceptionsForThreadedFileReader(){
         Assertions.assertDoesNotThrow(() -> readCSV("invalidFile.csv", null));
     }
-    // IN DEVELOPMENT
-//    @Test
-//    @DisplayName("Given a filePath and HashMap the readCSV method will read the file")
-//    public void readCSVReads(){
-//        HashMap<Integer, Employee> eHashActual = new HashMap<Integer,Employee>();
-//        readCSV("TestRecords.csv",eHashActual);
-//        HashMap<Integer, Employee> eHashExpected = generateTestHashMap();
-//
-//        //Map<Integer, Boolean> result = areEqualKeyValues(generateTestHashMap(),eHashActual);
-//
-//    }
+
     @Test
-    @DisplayName("Given a filePath and HashMap the readCSV method will read the employeeId and set it as the HashMaps keyset")
-    public void readCSVSetsEmployeeIDAsKeySet(){
+    @DisplayName("Given a filePath and HashMap the readCSV method will read the employeeId and set it as the HashMaps keyset for ThreadedFileReader")
+    public void readCSVSetsEmployeeIDAsKeySetForThreadedFileReader() {
         HashMap<Integer, Employee> eHashActual = new HashMap<>();
         readCSV("csvInputs/TestRecords.csv",eHashActual);
         HashMap<Integer, Employee> eHashExpected = generateTestHashMap();
 
         Assertions.assertEquals(eHashExpected.keySet(), eHashActual.keySet());
     }
+
+
+
     @Test
-    @DisplayName("Given a filePath and HashMap the readCSV method will read the file and remove duplicates")
-    public void readCSVRemovesDuplicates(){
+    @DisplayName("Given a filePath and HashMap the readCSV method will read the file and remove duplicates for ThreadedFileReader")
+    public void readCSVRemovesDuplicatesForThreadedFileReader(){
         HashMap<Integer, Employee> eHashActual = new HashMap<>();
         readCSV("csvInputs/TestDuplicateRecords.csv",eHashActual);
 
@@ -67,11 +54,7 @@ public class ReadFileTests {
 
         Assertions.assertEquals(eHashExpected.keySet(), eHashActual.keySet());
     }
-    private Map<Integer, Boolean> areEqualKeyValues(Map<Integer, Employee> first, Map<Integer, Employee> second) {
-        return first.entrySet().stream()
-                .collect(Collectors.toMap(e -> e.getKey(),
-                        e -> e.getValue().equals(second.get(e.getKey()))));
-    }
+
     private HashMap<Integer,Employee> generateTestHashMap(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
         HashMap<Integer, Employee> eHashExpected = new HashMap<>();
