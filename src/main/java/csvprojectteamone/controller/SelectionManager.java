@@ -38,7 +38,7 @@ public class SelectionManager {
                     selectAllEmployees();
                     break;
                 case 3:
-                    //countEmployees();
+                    countEmployees();
                     break;
                 case 4:
                     done = true;
@@ -63,14 +63,14 @@ public class SelectionManager {
 
 
 //We can add this method if we have a count function in the EmployeeDAOImpl class
-//    private static void countEmployees(){
-//        EmployeeManagerOther employeeManager = new EmployeeManagerOther();
-//        boolean done = false;
-//        do {
-//            employeeManager.countEmployees();
-//            done = true;
-//        } while(!done);
-//    }
+    private static void countEmployees(){
+        EmployeeManager employeeManager = new EmployeeManager();
+        boolean done = false;
+        do {
+            employeeManager.countEmployees();
+            done = true;
+        } while(!done);
+    }
 
 private static void selectAllEmployees(){
     EmployeeManager employeeManager = new EmployeeManager();

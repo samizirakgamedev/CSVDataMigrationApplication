@@ -73,12 +73,12 @@ public class FileReader {
                   map.put(id, e);
               }
             else {
-                FileWriter.writeToCSVFile("csvOutputs/DuplicateRecords.csv", e, "Duplicate-data");
+                FileWriterClass.writeToCSVFile("csvOutputs/DuplicateRecords.csv", e, "Duplicate-data");
                 duplicateCount++;
             }
         }
         else {
-            FileWriter.writeToCSVFile("csvOutputs/CorruptRecords.csv", e, "Corrupt-data");
+            FileWriterClass.writeToCSVFile("csvOutputs/CorruptRecords.csv", e, "Corrupt-data");
             corruptCount++;
         }
     }

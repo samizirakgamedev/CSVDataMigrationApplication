@@ -13,33 +13,29 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 public class ThreadedFileReader {
-    private static final int TOTAL_THREADS = 100;
-    static ArrayList<java.lang.Thread> threads = new ArrayList();
+    public static String line;
+    private static final int TOTAL_THREADS = 21;
+    static ArrayList<Thread> threads = new ArrayList<>();
     private static HashMap<Integer, Employee> threadedRecords = new HashMap<>();
     private static int duplicateCount = 0;
     private static int corruptCount = 0;
+    private static int deleteCount = 0;
+    private static int countCount = 0;
 
     // Method for reading in a CSV file from a directory.
     // This adds each record to a new 'Employee'' object  and then add those objects to the employeeHashmap collection.
     public static void readCSV(String filePath, HashMap<Integer, Employee> employeeHashMap) {
         LogClass.logInfo("readCSV called from ThreadedFileReader.");
-        long start = System.nanoTime(); //starts the timing
-        String line;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
         try (BufferedReader reader = new BufferedReader(new java.io.FileReader(filePath));) {
             LogClass.logInfo("The CSV file at path \"" + filePath + "\" has been found for ThreadedFileReader.");
             long entryCount = Files.lines(Paths.get(filePath)).count();
-
             String headerLine = reader.readLine();
-            while ((line = reader.readLine()) != null)
-            {
+            while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-
                 int key = Integer.parseInt(parts[0]);
-
                 Employee employee = new Employee(
                         key,
                         parts[1],
@@ -48,13 +44,11 @@ public class ThreadedFileReader {
                         parts[4],
                         parts[5].charAt(0),
                         parts[6],
-                        LocalDate.parse(parts[7],formatter),
-                        LocalDate.parse(parts[8],formatter),
+                        LocalDate.parse(parts[7], formatter),
+                        LocalDate.parse(parts[8], formatter),
                         Double.parseDouble(parts[9]));
-                dataFiltration(employee,key,employeeHashMap);
-
-                if(threadedRecords.size() > entryCount / TOTAL_THREADS) {
-
+                dataFiltration(employee, key, employeeHashMap);
+                if (threadedRecords.size() > entryCount / TOTAL_THREADS) {
                     createNewThreadAndAddToDatabase(threadedRecords);
                     threadedRecords = new HashMap<>();
                 }
@@ -64,18 +58,17 @@ public class ThreadedFileReader {
             LogClass.logInfo("The CSV file has been read.");
             LogClass.logWarn("There were " + duplicateCount + " duplicates and " + corruptCount + " corrupted records found.");
             LogClass.logInfo("Duplicate and corrupt records can be found in the csvOutputs folder.");
+            System.out.println(countCount);
+            System.out.println(deleteCount);
             duplicateCount = 0;
             corruptCount = 0;
-
             //outputRecords(employeeHashMap);
-        }catch (IOException | NullPointerException e) {
+        } catch (IOException | NullPointerException | InterruptedException e) {
             LogClass.logError("ThreadedFileReader has thrown an " + e + " exception type.");
         }
-        long end = System.nanoTime(); // ends the timing
-        LogClass.logInfo("It took " + (TimeUnit.MICROSECONDS.convert(end-start, TimeUnit.NANOSECONDS)) + " Microseconds to run the ThreadedFileReader 'readCSV' method."); //converts to microseconds
     }
     // Method for outputting all records that are stored within the employee HashMap.
-    public static void outputRecords(HashMap<Integer,Employee> hash){
+    public static void outputRecords(HashMap<Integer, Employee> hash) {
         LogClass.logInfo("outputRecords method called from ThreadedFileReader.");
         int count = 0;
         for (Integer key : hash.keySet()) {
@@ -86,41 +79,42 @@ public class ThreadedFileReader {
         LogClass.logInfo("Clean record have been counted and stored for ThreadedFileReader.");
     }
     // Method for checking that an employee's record is not corrupt or a duplicate of an already existing record within the HashMap.
-    public static void dataFiltration(Employee e, Integer id,HashMap<Integer,Employee> map){
-        if(DataVerification.isEmployeeDataValid(e))
-        {
-            if(!map.containsKey(id)){
-//                synchronized (map){
-                    map.put(id, e);
-                    threadedRecords.put(id, e);
-                }
-            else {
-                FileWriter.writeToCSVFile("csvOutputs/DuplicateRecords.csv", e, "Duplicate-data");
+    public static void dataFiltration(Employee e, Integer id, HashMap<Integer, Employee> map) {
+
+        String[] partArray = line.split(",");
+        if (DataVerification.isEmployeeDataValid(e)) {
+            if (!map.containsKey(Integer.parseInt(partArray[0]))) {
+                map.put(Integer.parseInt(partArray[0]), e);
+                threadedRecords.put(Integer.parseInt(partArray[0]), e);
+            } else {
+                FileWriterClass.writeToCSVFile("csvOutputs/DuplicateRecords.csv", e, "Duplicate-data");
                 duplicateCount++;
             }
-        }
-        else {
-            FileWriter.writeToCSVFile("csvOutputs/CorruptRecords.csv", e, "Corrupt-data");
+        } else {
+            FileWriterClass.writeToCSVFile("csvOutputs/CorruptRecords.csv", e, "Corrupt-data");
             corruptCount++;
         }
     }
-
-    private static void deleteThreads(){
-        while (threads.size() > 0) {
-            threads.removeIf((thread -> !thread.isAlive()));
-        }
-        LogClass.logInfo("Threads have been deleted.");
-    }
-
-    private static void createNewThreadAndAddToDatabase(HashMap<Integer, Employee> employeeHashMap){
-        Object lock = new Object();
-
+    private static void createNewThreadAndAddToDatabase(HashMap<Integer, Employee> employeeHashMap) throws InterruptedException {
+        Object lock = new HashMap<Integer, Employee>();
         Runnable runnable = () -> {
             EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
-            synchronized (lock) {employeeDAO.insertMultipleEmployees(employeeHashMap);}};
-        java.lang.Thread thread = new java.lang.Thread(runnable);
+            synchronized (lock) {
+                employeeDAO.insertMultipleEmployees(employeeHashMap);
+            }
+        };
+        Thread thread = new Thread(runnable);
         thread.start();
-        threads.add(thread);
+        System.out.println("Thread add, is after this step.");
+        threads.add(thread); //taking long after this
         LogClass.logInfo("New Threads have been created for ThreadedFileReader.");
+    }
+    private static void deleteThreads() {
+        countCount = threads.size();
+        while (threads.size() > 0 && threads.size() <=21 && threadedRecords != null) {
+            threads.removeIf((thread -> !thread.isAlive()));
+                deleteCount++;
+        }
+        LogClass.logInfo("Threads have been deleted. END");
     }
 }

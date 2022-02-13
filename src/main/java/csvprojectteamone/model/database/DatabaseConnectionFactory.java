@@ -9,7 +9,6 @@ import java.util.Properties;
 
 public class DatabaseConnectionFactory {
     private static Connection connection = null;
-
     public static Connection getConnection() throws IOException, SQLException {
         if (connection == null) {
             //initialise the connection

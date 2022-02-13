@@ -1,6 +1,8 @@
 package csvprojectteamone.model.database;
 
 import csvprojectteamone.model.Employee;
+import csvprojectteamone.model.LogClass;
+import csvprojectteamone.view.DisplayManager;
 
 import java.io.IOException;
 import java.sql.*;
@@ -12,11 +14,13 @@ public class EmployeeDAOImpl implements EmployeeDAOInterface {
                 " (employeeId, title , firstName, middleInitial, lastName, gender, emailAddress, dateOfBirth, dateOfJoining, salary)"
                 + " VALUES" + " (?,?,?,?,?,?,?,?,?,?);";
     private static final String SELECT_EMPLOYEE_BY_ID = "SELECT * FROM employees WHERE employeeId = ?; ";
+    private static final String COUNT_ROWS = "SELECT COUNT(*) FROM employees WHERE employeeId !=0;";
     private static final String SELECT_ALL_EMPLOYEES = "SELECT * FROM employees";
     private static final String CREATE_TABLE = "CREATE TABLE employees " +
-                "(employeeId INTEGER NOT NULL, " + "title VARCHAR(20), "+ "firstName VARCHAR(20), " + "middleInitial CHAR, "
+                "(employeeId INTEGER, " + "title VARCHAR(20), "+ "firstName VARCHAR(20), " + "middleInitial CHAR, "
                 + "lastName VARCHAR(20), " + "gender CHAR, " + "emailAddress VARCHAR(255)," + "dateOfBirth DATE, "
-                + "dateOfJoining DATE, " + "SALARY INTEGER NOT NULL)";
+                + "dateOfJoining DATE, " + "SALARY INTEGER NOT NULL,"+ "PRIMARY KEY (employeeId))";
+
 
     @Override
     public void createEmployeesTable() {
@@ -102,5 +106,28 @@ public class EmployeeDAOImpl implements EmployeeDAOInterface {
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int countRows() {
+        //if(connection == null) openConnection();
+        long startTime = System.nanoTime();
+        int count = 0;
+        try{
+            Connection connection = DatabaseConnectionFactory.getConnection();
+            Statement statement = connection.createStatement();
+            statement.executeQuery(COUNT_ROWS);
+            ResultSet rs = statement.getResultSet();
+            rs.next();
+            count = Integer.parseInt(rs.getString(1));
+        } catch (SQLException e){
+            LogClass.logError("Rows couldn't be counted: " + e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            double totalTime = (System.nanoTime() - startTime)/1_000_000_000.0;
+            DisplayManager.displayMessage("Operation performed in " + totalTime + " seconds");
+            DisplayManager.displayMessage("Total Number Of Employees :: " + count);
+        }
+        return count;
     }
 }

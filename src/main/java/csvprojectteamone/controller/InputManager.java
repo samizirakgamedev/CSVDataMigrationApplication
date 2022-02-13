@@ -1,5 +1,6 @@
 package csvprojectteamone.controller;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputManager {
@@ -8,8 +9,9 @@ public class InputManager {
     public static String getString() {
         return scanner.nextLine();
     }
-    public static int getInteger() {
+
+    public static int getInteger()
+    {
         return scanner.nextInt();
     }
-
 }

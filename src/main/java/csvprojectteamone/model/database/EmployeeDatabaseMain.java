@@ -10,18 +10,7 @@ import java.util.Scanner;
 
 public class EmployeeDatabaseMain {
     public static void main(String[] args) throws SQLException, IOException {
-//
-//        TEST INSERT EMPLOYEE
-//
-//        Employee testEmployee = new Employee(458749,"Mr." , "Donovannnn", 'R' ,"Cupueran",
-//                'M', "test@test.com", LocalDate.of(1997,10,24),LocalDate.of(2021,10,22),2000);
-//        employeeDAO.insertEmployee(testEmployee);
-//
-//
-        //Create table if not exists
         EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
-
-
         Scanner scanner = new Scanner(System.in);
         Scanner scanner2 = new Scanner(System.in);
         boolean exit = false;
@@ -60,8 +49,6 @@ public class EmployeeDatabaseMain {
                 }
             }
         }
-
         System.exit(0);
-
     }
 }

@@ -69,11 +69,11 @@ public class EmployeeManager {
     }
 
 
-//    public void countEmployees() {
-//        EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
-//        int rows = employeeDAO.countRows();
-//        employeeDAO.closeConnection();
-//    }
+    public void countEmployees() {
+        EmployeeDAOImpl employeeDAO = new EmployeeDAOImpl();
+        int rows = employeeDAO.countRows();
+        //employeeDAO.closeConnection();
+    }
 
 
 }
