@@ -3,9 +3,11 @@ package csvprojectteamone.view;
 import java.io.IOException;
 
 public class DisplayManager {
+    // Called when wanting to display a message to the user in the console.
     public static void displayMessage(String message){
         System.out.println(message);
     }
+    // Called when wanting to print the available options in the program to the user.
     public static void displaySelection(){
         System.out.println(
                 "\n======================================================================================\n"+

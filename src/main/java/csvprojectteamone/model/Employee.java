@@ -1,7 +1,7 @@
 package csvprojectteamone.model;
 
 import java.time.LocalDate;
-
+// Employee object
 public class Employee {
     private int employeeId;
     private String title;

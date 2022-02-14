@@ -16,11 +16,6 @@ import static csvprojectteamone.controller.FileReader.readCSV;
 
 
 public class ReadFileTests {
-    @BeforeAll
-    static void setUp(){
-
-    }
-
     @Test
     @DisplayName("Given an invalid filePath and a valid HashMap, the readCSV method will not throw a \"IOException\"")
     public void readCSVDoesNotThrowIOException(){
@@ -37,17 +32,6 @@ public class ReadFileTests {
     public void readCSVDoesNotThrowExceptions(){
         Assertions.assertDoesNotThrow(() -> readCSV("invalidFile.csv", null));
     }
-    // IN DEVELOPMENT
-//    @Test
-//    @DisplayName("Given a filePath and HashMap the readCSV method will read the file")
-//    public void readCSVReads(){
-//        HashMap<Integer, Employee> eHashActual = new HashMap<Integer,Employee>();
-//        readCSV("TestRecords.csv",eHashActual);
-//        HashMap<Integer, Employee> eHashExpected = generateTestHashMap();
-//
-//        //Map<Integer, Boolean> result = areEqualKeyValues(generateTestHashMap(),eHashActual);
-//
-//    }
     @Test
     @DisplayName("Given a filePath and HashMap the readCSV method will read the employeeId and set it as the HashMaps keyset")
     public void readCSVSetsEmployeeIDAsKeySet(){
