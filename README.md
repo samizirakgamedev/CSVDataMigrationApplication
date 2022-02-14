@@ -107,6 +107,57 @@ Phase 4 has the following objectives:
 
 ### JUnit Testing ###
 
+#### Manual Testing ####
+Manual Testing was carried out and the following features in the programme were tested. What the user sees is shown 
+in the figure below:
+
+<img src="readmeImages/Usin1.png"/>
+
+* When the user is asked for a number between 1 and 4, the user inputs a number outside of this range. 
+The console then repeats the question to the user due to the input type being the same as what the programme needs.
+* When the user is asked for a number between 1 and 4, the user inputs a character. Instead of throwing an InputMismatchException,
+ the programme repeats the question to the user because of the while loop in the SelectionManager inside the Controller.
+* When the user is asked for a number between 1 and 4, the user inputs a String. Instead of throwing an InputMismatchException,
+  the programme repeats the question to the user because of the while loop in the SelectionManager inside the Controller.
+* When the user is asked for a number between 1 and 4, the user inputs 1 and is then asked to select an 'Employee ID'. 
+The programme then extracts the employee with the record matching this description from the database. This is shown in the figure below:
+
+<img src="readmeImages/Usin2.png"/>
+
+* When the user is asked for a number between 1 and 4, the user inputs 2 and all employees are extracted from the database. This is shown in the figure below:
+
+<img src="readmeImages/Usin3.png"/>
+
+* When the user is asked for a number between 1 and 4, the user inputs 3 and the 'Total Employee Count' is obtained as well as the timing 
+in Seconds that the programme took to complete this function. This is shown in the figure below:
+
+<img src="readmeImages/Usin4.png"/>
+
+* When the user is asked for a number between 1 and 4, the user inputs 4 and the programme exits. This is shown in the figure below:
+
+<img src="readmeImages/Usin5.png"/>
+
+
+It is worth noting that the correct and incorrect selection of inputs were run in different orders multiple times, to ensure reliable validation.
+
+
+
+#### Automatic Testing ####
+
+Automatic jUnit testing was carried out using the following test classes:
+* DatabaseTests.
+* ThreadedFileReaderTests.
+* ReadFileTests.
+
+All automatic tests that were carried out passed, shown in the image below along with the test functionalities:
+
+<img src="readmeImages/Jut1.png"/>
+
+
+
+
+
+
 <br/>
 <div align="right">
     <b><a href="#csv-data-migration-application-java">↥ back to top</a></b>
