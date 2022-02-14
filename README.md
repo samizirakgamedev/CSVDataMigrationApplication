@@ -132,19 +132,19 @@ Our trello was also updated throughout our project to reflect the completion of 
 
 **Progress Shot 1**
 
-<img src="readmeImages/tps1.png"/>
+<img src="readmeImages/tps1.PNG"/>
 
 **Progress Shot 2**
 
-<img src="readmeImages/tps2.png"/>
+<img src="readmeImages/tps2.PNG"/>
 
 **Progress Shot 3**
 
-<img src="readmeImages/tps3.png"/>
+<img src="readmeImages/tps3.PNG"/>
 
 **Progress Shot 4**
 
-<img src="readmeImages/tps4.png"/>
+<img src="readmeImages/tps4.PNG"/>
 
 <br/>
 <div align="right">
