@@ -132,12 +132,16 @@ Our trello was also updated throughout our project to reflect the completion of 
 
 **Progress Shot 1**
 <img src="readmeImages/tps1.png"/>
+
 **Progress Shot 2**
 <img src="readmeImages/tps2.png"/>
+
 **Progress Shot 3**
 <img src="readmeImages/tps3.png"/>
+
 **Progress Shot 4**
 <img src="readmeImages/tps4.png"/>
+
 <br/>
 <div align="right">
     <b><a href="#csv-data-migration-application-java">↥ back to top</a></b>
@@ -153,7 +157,7 @@ approach was taken to compare the performance by these factors:
 
 In terms of 'Thread Safety', a singular thread will always be more thread safe because it is only carrying out
 one thread. A singular threaded programme is also marginally less difficult to read because less advanced
-code is required. It is more beneficial to have a programme that less time to run, which the singular threaded programme did in this project.
+code is required. It is more beneficial to have a programme that takes less time to run, which the singular threaded programme did in this project.
 The result of our threaded and non-threaded tests are shown below:
 
 <img src="readmeImages/perf1.png"/>
