@@ -131,15 +131,19 @@ Bellow is a commit graph showing the commit history of the project. We each bran
 Our trello was also updated throughout our project to reflect the completion of deadlines and the completion of sprints and tests. The pictures below shows how our Trello has evolved:
 
 **Progress Shot 1**
+
 <img src="readmeImages/tps1.png"/>
 
 **Progress Shot 2**
+
 <img src="readmeImages/tps2.png"/>
 
 **Progress Shot 3**
+
 <img src="readmeImages/tps3.png"/>
 
 **Progress Shot 4**
+
 <img src="readmeImages/tps4.png"/>
 
 <br/>
