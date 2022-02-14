@@ -14,5 +14,6 @@ public interface EmployeeDAOInterface {
     boolean selectEmployee(int employeeId);
     //Select all Employees
     void selectAllEmployees();
+    //count number of employees
     int countRows();
     }

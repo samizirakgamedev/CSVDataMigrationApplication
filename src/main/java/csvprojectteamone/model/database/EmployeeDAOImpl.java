@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 public class EmployeeDAOImpl implements EmployeeDAOInterface {
 
+//Declaration of the constant variables used for Querying into the database
     private static final String INSERT_EMPLOYEE = "INSERT INTO employees" +
                 " (employeeId, title , firstName, middleInitial, lastName, gender, emailAddress, dateOfBirth, dateOfJoining, salary)"
                 + " VALUES" + " (?,?,?,?,?,?,?,?,?,?);";
@@ -22,9 +23,11 @@ public class EmployeeDAOImpl implements EmployeeDAOInterface {
                 + "dateOfJoining DATE, " + "SALARY INTEGER NOT NULL,"+ "PRIMARY KEY (employeeId))";
 
 
+    //Method to drop employee table if already exists to make sure it´s cleaned before using and then creates if it does not exist
     @Override
     public void createEmployeesTable() {
         try {
+            //creates connection to the database
             Connection connection = DatabaseConnectionFactory.getConnection();
             Statement dropTable = connection.createStatement();
             dropTable.executeUpdate("DROP TABLE IF EXISTS employees");
@@ -35,11 +38,15 @@ public class EmployeeDAOImpl implements EmployeeDAOInterface {
             e.printStackTrace();
         }
     }
+
+    //Method to inserts one single employee into the employees database using the employee´s object
         @Override
     public void insertEmployee(Employee employee){
         PreparedStatement preparedStatement = null;
         try{
+            //creates connection to the database
             Connection connection = DatabaseConnectionFactory.getConnection();
+            //Statement to insert all column values into the table using employee´s object info.
             preparedStatement = connection.prepareStatement(
                     INSERT_EMPLOYEE);
             preparedStatement.setInt(1, employee.getEmployeeId());
@@ -53,6 +60,7 @@ public class EmployeeDAOImpl implements EmployeeDAOInterface {
             preparedStatement.setDate(9,Date.valueOf(employee.getDateOfJoining()));
             preparedStatement.setDouble(10,employee.getSalary());
 
+            //Executes the query to insert an employee
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException | IOException e){
@@ -61,27 +69,35 @@ public class EmployeeDAOImpl implements EmployeeDAOInterface {
 
     }
 
+    //Method to insert multiple employees into the table
     @Override
     public void insertMultipleEmployees(HashMap<Integer, Employee> employeesList) {
+        //Iterates through the map of employees objects and calls insert employee method for each employee
         for(Employee employee : employeesList.values()){
             insertEmployee(employee);
         }
     }
 
+    //Method to select employee from the employees table based on the employee id
     @Override
     public boolean selectEmployee(int employeeId) {
+        //Initialises the result query
         ResultSet rs = null;
         try{
+            //creates connection to the database
             Connection connection = DatabaseConnectionFactory.getConnection();
+            //Statement to select employees based on the employee id
             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_EMPLOYEE_BY_ID);
             preparedStatement.setInt(1,employeeId);
             rs = preparedStatement.executeQuery();
 
+            //If employee is found, prints its info to the console and returns true
             if(rs.next()){
                 System.out.println("Employee: " + rs.getString(2) + " "  + rs.getString(3) + " " +  rs.getString(4) + " " + rs.getString(5)
                                 + " Gender: " + rs.getString(6) + " Email: " + rs.getString(7) + " Birthdate: " + rs.getString(8) + " Joining date: "
                                 + rs.getString(9));
                 return true;}
+            //Returns false if employee has not been found
             else return false;
         } catch (SQLException | IOException e) {
             e.printStackTrace();
@@ -90,13 +106,17 @@ public class EmployeeDAOImpl implements EmployeeDAOInterface {
     }
 
 
+    //Method to select all employees from the employees table
     @Override
     public void selectAllEmployees() {
         ResultSet rs = null;
         try{
+            //creates connection to the database
             Connection connection = DatabaseConnectionFactory.getConnection();
             Statement statement = connection.createStatement();
+            //Statement to select all employees in the table.
             rs = statement.executeQuery(SELECT_ALL_EMPLOYEES);
+            //iterates through the result and prints out employees info
             while(rs.next()) {
                 System.out.println("Employee: " + rs.getString(2) + " " + rs.getString(3) + " " + rs.getString(4) + " " + rs.getString(5)
                         + " Gender: " + rs.getString(6) + " Email: " + rs.getString(7) + " Birthdate: " + rs.getString(8) + " Joining date: "
@@ -108,18 +128,22 @@ public class EmployeeDAOImpl implements EmployeeDAOInterface {
         }
     }
 
+    //Method to count number of employees in the database
     public int countRows() {
-        //if(connection == null) openConnection();
         long startTime = System.nanoTime();
+        //initialises count variable
         int count = 0;
         try{
+            //creates connection to the database
             Connection connection = DatabaseConnectionFactory.getConnection();
+            // statement to count the number of rows (employees) in the table
             Statement statement = connection.createStatement();
             statement.executeQuery(COUNT_ROWS);
             ResultSet rs = statement.getResultSet();
             rs.next();
             count = Integer.parseInt(rs.getString(1));
         } catch (SQLException e){
+            //Prints out error message if could not count employees
             LogClass.logError("Rows couldn't be counted: " + e.getMessage());
         } catch (IOException e) {
             e.printStackTrace();

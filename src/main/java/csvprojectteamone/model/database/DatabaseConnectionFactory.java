@@ -8,10 +8,12 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DatabaseConnectionFactory {
+    //Initialises the connection variable
     private static Connection connection = null;
+    //Method to create a connection if it does not exist or get the connection.
     public static Connection getConnection() throws IOException, SQLException {
         if (connection == null) {
-            //initialise the connection
+            //initialise the connection using the properties file
             Properties props = new Properties();
             props.load(new FileReader("mysql.properties"));
             connection = DriverManager.getConnection(
@@ -21,12 +23,14 @@ public class DatabaseConnectionFactory {
         }
         return connection;
     }
+    //Closes the connection to the database
     public static void closeConnection() throws SQLException {
         //Close the connection
         if(connection != null){
             connection.close();
         }
     }
+    //Private constructor to make it a singleton
     private DatabaseConnectionFactory() {
     }
 }
