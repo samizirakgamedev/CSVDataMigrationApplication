@@ -25,6 +25,7 @@ The CSV Data migration application will read data from a CSV file, parse it, pop
 + [JUnit Testing](#junit-testing)
   - [Manual Testing](#manual-testing)
   - [Automatic Testing](#automatic-testing)
++ [Functional Programming](#functional-programming)
 ### Software & Dependencies ###
 * **IntelliJ Community Edition** [Version 2021.3.2](https://www.jetbrains.com/idea/download/#section=windows)
 * **JDK** [Version 17.0.2](https://jdk.java.net/17/)
@@ -218,6 +219,19 @@ Automatic jUnit testing was carried out using the following test classes:
 All automatic tests that were carried out passed, shown in the image below along with the test functionalities:
 
 <img src="readmeImages/Jut1.png"/>
+
+<br/>
+<div align="right">
+    <b><a href="#csv-data-migration-application-java">↥ back to top</a></b>
+</div>
+<br/>
+
+### Functional Programming ###
+
+Functional and Lambda expressions are used to shorten code and make it easier to read. This was particularly important 
+to implement in the test cases where the code is already quite hard to read. In the ThreadedFileReader and FileReader 
+test cases they were used to call the 'readCSV' method for each test. They worked extremely effectively in our code and 
+improved the ease of reading dramatically. Lambda expressions are very similar to methods. You can't however have a method inside another method, which is where Lambda expressions came useful in this project.
 
 <br/>
 <div align="right">
