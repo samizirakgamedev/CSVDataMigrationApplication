@@ -95,6 +95,7 @@ public class ThreadedFileReader {
             corruptCount++;
         }
     }
+    // Creates a method for creating new threads (set amount) and adding these threads to the database.
     private static void createNewThreadAndAddToDatabase(HashMap<Integer, Employee> employeeHashMap) throws InterruptedException {
         Object lock = new HashMap<Integer, Employee>();
         Runnable runnable = () -> {
@@ -103,12 +104,14 @@ public class ThreadedFileReader {
                 employeeDAO.insertMultipleEmployees(employeeHashMap);
             }
         };
+        // Initiates the threads.
         Thread thread = new Thread(runnable);
         thread.start();
         System.out.println("Thread add, is after this step.");
-        threads.add(thread); //taking long after this
+        threads.add(thread);
         LogClass.logInfo("New Threads have been created for ThreadedFileReader.");
     }
+    //Creates a method for deleting the threads created in the above method.
     private static void deleteThreads() {
         countCount = threads.size();
         while (threads.size() > 0 && threads.size() <=21 && threadedRecords != null) {

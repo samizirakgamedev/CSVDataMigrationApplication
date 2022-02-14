@@ -47,10 +47,10 @@ public class FileReader {
             LogClass.logInfo("The CSV file has been read. There were " + duplicateCount + " duplicates and " + corruptCount + " corrupted files found");
             LogClass.logInfo("These can be found in the csvOutputs folder.");
         }catch (IOException | NullPointerException e) {
-            e.printStackTrace(); // we can remove this line
+            e.printStackTrace(); // Catches an 'IOEception' if this occurs.
             LogClass.logError("FileReader has thrown an " + e + " exception type"); //in place of e, we can call the e.getMessage()
         }
-        long end = System.nanoTime(); // timing method ends
+        long end = System.nanoTime(); // timing method ends.
         LogClass.logInfo("It took " + (TimeUnit.MICROSECONDS.convert(end-start, TimeUnit.NANOSECONDS)) + " Microseconds to run the non-threaded FileReader 'readCSV' method.");//converts to microseconds
     }
     // Method for outputting all records that are stored within the employee HashMap.

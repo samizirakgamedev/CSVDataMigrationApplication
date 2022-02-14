@@ -14,7 +14,7 @@ public class FileWriterClass {
             synchronized (bw){
                 bw.write(employee.toString() + "\n");
             }
-        } catch (IOException e) {
+        } catch (IOException e) { // Catches an 'IOEception' if it occurs.
             e.printStackTrace();
             LogClass.logError("FileWriter has thrown an " + e + " exception type");
         }

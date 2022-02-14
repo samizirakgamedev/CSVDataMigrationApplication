@@ -7,14 +7,14 @@ import java.util.InputMismatchException;
 
 public class SelectionManager {
     public static void startSelectionProcess() {
-        boolean done = false;
-        while(!done){
+        boolean done = false; //Initiates the boolean value 'done'.
+        while(!done){ // While loop to run the programme until the functions selected in the user have been completed.
             boolean choice = false;
             DisplayManager.displaySelection();
             int userChoice = 0;
             do {
                 try {
-                    userChoice = InputManager.getInteger();
+                    userChoice = InputManager.getInteger(); // Try statement to display the task the user must carry out to run the programme.
                     if(userChoice >= 1 && userChoice <= 4){
                         choice = true;
                     } else{
@@ -28,7 +28,7 @@ public class SelectionManager {
                     LogClass.logError(e.getMessage());
                     InputManager.getString();
                 }
-            } while(!choice);
+            } while(!choice); //Re-runs the programme after the user task has been completed until 'Exit' is picked where 'done' is then true.
 
             switch (userChoice){
                 case 1:
@@ -46,7 +46,7 @@ public class SelectionManager {
             }
         }
     }
-
+    // Calls the 'SelectEmployee' method by choosing the Employee ID.
     private static void selectEmployee(){
         EmployeeManager employeeManager = new EmployeeManager();
         boolean done = false;
@@ -62,7 +62,7 @@ public class SelectionManager {
     }
 
 
-//We can add this method if we have a count function in the EmployeeDAOImpl class
+// Calls the 'countEmployees' method.
     private static void countEmployees(){
         EmployeeManager employeeManager = new EmployeeManager();
         boolean done = false;
@@ -71,7 +71,7 @@ public class SelectionManager {
             done = true;
         } while(!done);
     }
-
+    // Calls the 'selectAllEmployees' method.
 private static void selectAllEmployees(){
     EmployeeManager employeeManager = new EmployeeManager();
     boolean done = false;
